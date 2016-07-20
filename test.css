@@ -1,0 +1,55 @@
+/*****************************************
+ *
+ * htz-stick
+ *
+ *****************************************/
+
+html { font-size: 21px; }
+
+
+body,
+.stick-el > div {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.wrapper {background-color: #ccc}
+.stick-wrapper, .stick-el {
+  width: 100%;
+  left: 0;
+}
+
+
+.stick-wrapper, .stick-el > div {
+  height: 100px;
+}
+
+.stick-el {
+  z-index: 10;
+}
+.stick-el--b {
+  z-index: 9;
+}
+.stick-el--c {
+  z-index: 8;
+}
+.stick-el--d {
+  z-index: 12;
+}
+
+.stick-el > div {
+  background-color: #333;
+}
+.stick-el--b > div {
+  background-color: #555;
+}
+.stick-el--c > div {
+  background-color: #777;
+}
+.stick-el--d > div {
+  background-color: #f00;
+  opacity: 1;
+}
+.stick-el--d.is-sticky > div {
+  opacity: 0.7;
+}
