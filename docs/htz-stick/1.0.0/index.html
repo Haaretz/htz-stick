@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="nav">
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="module-htz-stick.html#event:stick:after-destroy">stick:after-destroy</a></li><li><a href="module-htz-stick.html#event:stick:after-init">stick:after-init</a></li><li><a href="module-htz-stick.html#event:stick:after-stick">stick:after-stick</a></li><li><a href="module-htz-stick.html#event:stick:after-unstick">stick:after-unstick</a></li><li><a href="module-htz-stick.html#event:stick:before-destroy">stick:before-destroy</a></li><li><a href="module-htz-stick.html#event:stick:before-init">stick:before-init</a></li><li><a href="module-htz-stick.html#event:stick:before-stick">stick:before-stick</a></li><li><a href="module-htz-stick.html#event:stick:before-unstick">stick:before-unstick</a></li></ul><h3>Modules</h3><ul><li><a href="module-evaluate-stick.html">evaluate-stick</a></li><li><a href="module-htz-stick.html">htz-stick</a><ul class='methods'><li data-type='method'><a href="module-htz-stick.html#~getScrollPosition">getScrollPosition</a></li></ul></li><li><a href="module-update-style.html">update-style</a></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    <!--container.tmpl-->
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>HTZ STICK</h1><p>A flexible module for performant sticking of elements on scroll</p>
+<h3>Installation</h3><pre class="prettyprint source lang-bash"><code>jspm install htz-stick=github:haaretz/htz-stick</code></pre><h3>Usage</h3><p>To initialize an instance:</p>
+<pre class="prettyprint source lang-js"><code>import stick from 'htz-stick';
+
+const stickyElem = stick(document.getElementById('foo'));</code></pre><h4>Parameters</h4><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target</code>&emsp;</td>
+<td><code>HTMLElement</code>&emsp;</td>
+<td>-&emsp;</td>
+<td>The element to make sticky. Should be contained inside an element which will keep its size and remain static</td>
+</tr>
+<tr>
+<td><code>options</code>&emsp;</td>
+<td><code>Object</code>&emsp;</td>
+<td>-&emsp;</td>
+<td>An options object</td>
+</tr>
+<tr>
+<td><code>options.stickyClass</code>&emsp;</td>
+<td><code>String</code>&emsp;</td>
+<td><code>'is-sticky'</code>&emsp;</td>
+<td>The class that will be attached to target when it becomes sticky</td>
+</tr>
+<tr>
+<td><code>options.guardHeight</code>&emsp;</td>
+<td><code>Boolean</code>&emsp;</td>
+<td><code>true</code>&emsp;</td>
+<td>Should <code>target</code> be wrapped by an element with an explicit height to prevent layout collapsing when <code>target</code> becomes <code>position: fixed</code></td>
+</tr>
+<tr>
+<td><code>options.stickWithin</code>&emsp;</td>
+<td><code>HTMLElement</code>&emsp;</td>
+<td>-&emsp;</td>
+<td>Limit sticky behavior to the boundaries of the <code>stickWithin</code> element. Default's to the stuck element's parent-parent element</td>
+</tr>
+<tr>
+<td><code>options.topSpacing</code>&emsp;</td>
+<td><code>Integer</code> or <code>HTMLElement</code>&emsp;</td>
+<td><code>0</code>&emsp;</td>
+<td>Determines how far from the top of the screen the element will stick. If <code>topSpacing</code> is an <code>HTMLElement</code>, the element's height will be calculated and used</td>
+</tr>
+<tr>
+<td><code>options.stickAfter</code>&emsp;</td>
+<td><code>HTMLElement</code>&emsp;</td>
+<td>-&emsp;</td>
+<td>Only make <code>elem</code> sticky after <code>stickAfter</code> reaches sticking position</td>
+</tr>
+<tr>
+<td><code>options.delta</code>&emsp;</td>
+<td><code>Integer</code>&emsp;</td>
+<td><code>0</code>&emsp;</td>
+<td>Only stick if scroll delta exceeds provided amount.</td>
+</tr>
+<tr>
+<td><code>options.direction</code>&emsp;</td>
+<td><code>String</code>&emsp;</td>
+<td><code>'both'</code>&emsp;</td>
+<td>Only stick when scrolling in indicated direction. Can be one of <code>'both'</code>, <code>'up'</code> or '<code>down</code>'</td>
+</tr>
+<tr>
+<td><code>options.secondaryAction</code>&emsp;</td>
+<td><code>Function</code>&emsp;</td>
+<td>-&emsp;</td>
+<td>A custom callback to run whenever evaluating the scroll event</td>
+</tr>
+</tbody>
+</table>
+<h4>Events</h4><p>See <a href="https://haaretz.github.io/module-htz-stick.html#event:stick:after-destroy">documentation</a> for a detailed list of custom events fired.</p>
+<h4>Instance Methods</h4><p>The following methods are available in every instance returned by <code>htz-stick</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target</code>&emsp;</td>
+<td>The target element</td>
+</tr>
+<tr>
+<td><code>isSticky</code>&emsp;</td>
+<td>Returns <code>true</code> if <code>target</code> is currently sticky, <code>false</code> otherwise</td>
+</tr>
+<tr>
+<td><code>destroy</code>&emsp;</td>
+<td>Remove all classes, style and event listeners associated with an instance</td>
+</tr>
+<tr>
+<td><code>init</code>&emsp;</td>
+<td>Reinitialize an instance</td>
+</tr>
+</tbody>
+</table></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jul 22 2016 21:44:05 GMT+0300 (IDT) using the LOKE theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

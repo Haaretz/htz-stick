@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/evaluate-stick.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav class="nav">
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="module-htz-stick.html#event:stick:after-destroy">stick:after-destroy</a></li><li><a href="module-htz-stick.html#event:stick:after-init">stick:after-init</a></li><li><a href="module-htz-stick.html#event:stick:after-stick">stick:after-stick</a></li><li><a href="module-htz-stick.html#event:stick:after-unstick">stick:after-unstick</a></li><li><a href="module-htz-stick.html#event:stick:before-destroy">stick:before-destroy</a></li><li><a href="module-htz-stick.html#event:stick:before-init">stick:before-init</a></li><li><a href="module-htz-stick.html#event:stick:before-stick">stick:before-stick</a></li><li><a href="module-htz-stick.html#event:stick:before-unstick">stick:before-unstick</a></li></ul><h3>Modules</h3><ul><li><a href="module-evaluate-stick.html">evaluate-stick</a></li><li><a href="module-htz-stick.html">htz-stick</a><ul class='methods'><li data-type='method'><a href="module-htz-stick.html#~getScrollPosition">getScrollPosition</a></li></ul></li><li><a href="module-update-style.html">update-style</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">lib/evaluate-stick.js</h1>
+    
+
+    <!--container.tmpl-->
+
+
+
+
+    <!--source.tmpl-->
+
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * EVALUATE STICK
+ *
+ * A utility for evaluating an element's stickiness
+ *
+ * @module evaluate-stick
+ * @license MIT
+ */
+
+
+/**
+ * Evaluate if an element should be sticky, and the values to
+ * assign to the css `position` and `top` properties.
+ *
+ * @param {HTMLElement} target - The element to evaluate
+ * @param {HTMLElement} stickWithin - The container that sets stick limits
+ * @param {HTMLElement|Number} topSpacing - The distance from the top of the
+ *    viewport `target` should stick in, or an element to stick to.
+ * @param {Number} lastWinScrollY - The last known scroll position before the current one.
+ * @param {Number} winScrollY - The current scroll position.
+ * @param {HTMLElement} offsetElem - An element to determine sticking
+ *    position's top limit.
+ * @param {Integer} delta - Only stick if scroll delta exceeds provided amount.
+ * @param {String} direction - Only stick when scrolling in indicated direction.
+ *    Can be one of `'both'`, `'up'` or '`down`'.
+ * @param {Boolean} isSticky - Indicates if `target` is currently sticky.
+ *
+ * @return {Object} Evaluated results. Has `makeSticky`, `newPosition` and
+ *    `newTop` properties.
+ */
+export default function evaluateStick(
+  target,
+  stickWithin,
+  topSpacing,
+  lastWinScrollY,
+  winScrollY,
+  offsetElem,
+  delta,
+  direction,
+  isSticky
+) {
+  let newPosition; let newTop;
+
+  const wrapper = target.parentElement;
+  const topLimitElem = (offsetElem || wrapper).offsetTop >= stickWithin.offsetTop ?
+    offsetElem || wrapper :
+    stickWithin;
+  const distance = topSpacing.tagName ? topSpacing.getBoundingClientRect().bottom : topSpacing;
+
+  const {
+    top: targetRectTop,
+    bottom: targetRectBot,
+  } = target.getBoundingClientRect();
+
+  const wrapperRectTop = wrapper.getBoundingClientRect().top;
+  const stickWithinRectBot = stickWithin.getBoundingClientRect().bottom;
+
+  const targetHeight = targetRectBot - targetRectTop;
+  const limitTop = topLimitElem.getBoundingClientRect().top + winScrollY - distance;
+  const limitBottom = stickWithinRectBot + winScrollY - targetHeight - distance;
+
+  const velocity = winScrollY - lastWinScrollY;
+  const aboveDelta = isSticky || delta &lt;= Math.abs(velocity);
+  const isRightDirection = direction === 'both' ||
+    (direction === 'down' ? velocity >= 0 : velocity &lt;= 0);
+
+  const makeSticky = aboveDelta &amp;&amp; isRightDirection &amp;&amp; winScrollY >= limitTop;
+
+  if (makeSticky) {
+    if (winScrollY &lt;= limitBottom) {
+      newPosition = 'fixed';
+      newTop = distance;
+    }
+    else {
+      newPosition = 'relative';
+      newTop = stickWithinRectBot - (wrapperRectTop + targetHeight);
+    }
+  }
+  else {
+    newPosition = 'relative';
+    newTop = 0;
+  }
+
+  return {
+    makeSticky,
+    newPosition,
+    newTop,
+  };
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jul 22 2016 21:44:05 GMT+0300 (IDT) using the LOKE theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
