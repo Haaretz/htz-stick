@@ -82,7 +82,7 @@ export default function htzStick(
 
   if (guardHeight) {
     wrapper.style.display = 'none';
-    wrapper.style.height = target.offsetHeight;
+    wrapper.style.height = `${target.offsetHeight}px`;
     target.parentNode.insertBefore(wrapper, target);
     wrapper.appendChild(target);
     wrapper.style.display = null;
@@ -359,7 +359,7 @@ export default function htzStick(
        */
       dispatchEvent(target, 'stick:before-init');
 
-      wrapper.style.height = target.offsetHeight;
+      if (guardHeight) wrapper.style.height = `${target.offsetHeight}px`;
       onScroll();
 
       window.addEventListener('scroll', onScroll, false);
@@ -396,7 +396,7 @@ export default function htzStick(
 
       updateStyle(position, originalPosition, top, originalTop, targetStyle);
       target.classList.add(stickyClass);
-      wrapper.style.height = null;
+      if (guardHeight) wrapper.style.height = null;
       position = originalPosition;
       top = originalTop;
       isStuck = false;
