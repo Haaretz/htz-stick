@@ -8,10 +8,9 @@
  */
 
 import dispatchEvent from 'htz-dispatch-event';
-import hasPassiveEvents from 'htz-has-passive-events';
 import updateStyle from './lib/update-style';
 import evaluateStick from './lib/evaluate-stick';
-import { debounce } from 'lodash-es';
+import debounce from 'lodash-es/debounce';
 
 
 /**
@@ -363,7 +362,7 @@ export default function htzStick(
       wrapper.style.height = target.offsetHeight;
       onScroll();
 
-      window.addEventListener('scroll', onScroll, hasPassiveEvents() ? { passive: true } : false);
+      window.addEventListener('scroll', onScroll, false);
       window.addEventListener('resize', onResize);
 
       /**

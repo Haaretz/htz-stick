@@ -11,6 +11,7 @@ const second = stick(
   stick2,
   {
     topSpacing: stick1,
+    stickWithin: wrapper,
   }
 );
 window.second = second;
