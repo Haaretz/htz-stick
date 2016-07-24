@@ -42,9 +42,12 @@ export default function evaluateStick(
   let newPosition; let newTop;
 
   const wrapper = target.parentElement;
-  const topLimitElem = (offsetElem || wrapper).offsetTop >= stickWithin.offsetTop ?
-    offsetElem || wrapper :
-    stickWithin;
+  const topLimitElem = getOffset(stickWithin) > getOffset(offsetElem || wrapper) ?
+    stickWithin :
+    offsetElem || wrapper;
+  // const topLimitElem = (offsetElem || wrapper).offsetTop >= stickWithin.offsetTop ?
+  //   offsetElem || wrapper :
+  //   stickWithin;
   const distance = topSpacing.tagName ? topSpacing.getBoundingClientRect().bottom : topSpacing;
 
   const {
@@ -86,4 +89,10 @@ export default function evaluateStick(
     newPosition,
     newTop,
   };
+
+  function getOffset(elem) {
+    const offset = elem.offsetTop;
+
+    return elem.offsetParent ? offset + getOffset(elem.offsetParent) : offset;
+  }
 }
