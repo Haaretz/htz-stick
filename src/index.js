@@ -96,8 +96,10 @@ export default function htzStick(
 
   const onResize = debounce(
     () => {
-      destroy();
-      init();
+      unsetStyle();
+      setStyle();
+      // destroy();
+      // init();
     },
     125,
     { maxWait: 500 }
@@ -342,6 +344,22 @@ export default function htzStick(
     }
   }
 
+  function setStyle() {
+    if (isInitialized) {
+      if (guardHeight) wrapper.style.height = `${target.offsetHeight}px`;
+      onScroll();
+    }
+  }
+
+  function unsetStyle() {
+    updateStyle(position, originalPosition, top, originalTop, targetStyle);
+    target.classList.remove(stickyClass);
+    if (guardHeight) wrapper.style.height = null;
+    position = originalPosition;
+    top = originalTop;
+    isStuck = false;
+  }
+
 
   /**
    * Initialize sticky elem
@@ -359,8 +377,7 @@ export default function htzStick(
        */
       dispatchEvent(target, 'stick:before-init');
 
-      if (guardHeight) wrapper.style.height = `${target.offsetHeight}px`;
-      onScroll();
+      setStyle();
 
       window.addEventListener('scroll', onScroll, false);
       window.addEventListener('resize', onResize);
@@ -394,12 +411,7 @@ export default function htzStick(
        */
       dispatchEvent(target, 'stick:before-destroy');
 
-      updateStyle(position, originalPosition, top, originalTop, targetStyle);
-      target.classList.add(stickyClass);
-      if (guardHeight) wrapper.style.height = null;
-      position = originalPosition;
-      top = originalTop;
-      isStuck = false;
+      unsetStyle();
 
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
