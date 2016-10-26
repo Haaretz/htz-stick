@@ -12,3 +12,6 @@ jspm_packages
 /sgSrc/assets
 /styleguide
 /js/dist
+
+# Ignore ternjs port
+.tern-port

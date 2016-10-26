@@ -59,8 +59,8 @@ export default function evaluateStick(
   const stickWithinRectBot = stickWithin.getBoundingClientRect().bottom;
 
   const targetHeight = targetRectBot - targetRectTop;
-  const limitTop = topLimitElem.getBoundingClientRect().top + winScrollY - distance;
-  const limitBottom = stickWithinRectBot + winScrollY - targetHeight - distance;
+  const limitTop = (topLimitElem.getBoundingClientRect().top + winScrollY) - distance;
+  const limitBottom = (stickWithinRectBot + winScrollY) - targetHeight - distance;
 
   const velocity = winScrollY - lastWinScrollY;
   const aboveDelta = isSticky || delta <= Math.abs(velocity);

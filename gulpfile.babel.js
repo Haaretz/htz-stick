@@ -21,9 +21,10 @@ gulp.task('jspm', ['eslint'], (cb) => {
       globalName: 'Achbar',
       sourceMaps: true,
     }
-  ).then(
-    builder.
-      buildStatic(
+  )
+  .then(
+    builder
+    .buildStatic(
       'js/head',
       'js/dist/bodyBundle.min.js',
       {

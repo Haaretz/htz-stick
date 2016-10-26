@@ -7,10 +7,10 @@
  * @license MIT
  */
 
+import debounce from 'lodash-es/debounce';
 import dispatchEvent from 'htz-dispatch-event';
 import updateStyle from './lib/update-style';
 import evaluateStick from './lib/evaluate-stick';
-import debounce from 'lodash-es/debounce';
 
 
 /**
