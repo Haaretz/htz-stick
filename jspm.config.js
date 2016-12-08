@@ -29,7 +29,7 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "htz-dispatch-event": "github:haaretz/htz-dispatch-event@1.0.1",
+    "htz-dispatch-event": "github:haaretz/htz-dispatch-event@1.0.3",
     "htz-has-passive-events": "github:haaretz/htz-has-passive-events@1.0.0",
     "lodash-es": "npm:lodash-es@4.16.4"
   },
